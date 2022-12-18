@@ -70,6 +70,11 @@ deck.push('JS')
 deck.push('QS')
 deck.push('KS')
 
+var dealerScore = 0;
+var playerScore = 0;
+var dealerHand = [];
+var playerHand = [];
+
 
 function shuffle(arr) {
   var result = []
@@ -81,8 +86,6 @@ function shuffle(arr) {
     if (!freshDeck[draw]) {
       freshDeck[draw] = draw;
       result.push(draw);
-
-    } else {
 
     }
 
@@ -112,25 +115,31 @@ function multiDeck(arr, n) {
     }
 
   }
-
+  console.log(freshDeck);
   return result;
 }
 
 
 
 
-var multiDano = MultiDeck(deck, 5)
+var multiDano = MultiDeck(deck, 87)
 
-console.log(multiDano[15]);
+
+console.log(multiDano)
+
+
 var playingDeck = [];
 var deckFinished = true;
 
+function hitMe() {
+  var newCard = playingDeck.pop();
+  playerHand.push(newCard);
+  console.log(playerHand);
+  return playerHand;
+}
+
 
 function deal() {
-  var dealerScore = 0;
-  var playerScore = 0;
-  var dealerHand = [];
-  var playerHand = [];
 
   if (playingDeck.length < 10) {
     deckFinished = true
@@ -141,10 +150,10 @@ function deal() {
     console.log(`shuffling`)
   }
 
-  var card1 = playingDeck.shift();
-  var card2 = playingDeck.shift();
-  var card3 = playingDeck.shift();
-  var card4 = playingDeck.shift();
+  var card1 = playingDeck.pop();
+  var card2 = playingDeck.pop();
+  var card3 = playingDeck.pop();
+  var card4 = playingDeck.pop();
 
   playerHand.push(card1, card3);
 
@@ -153,16 +162,25 @@ function deal() {
   console.log(playerHand)
   console.log(dealerHand)
 
-console.log(card1, card3, '==========', card2, card4);
+
 };
 
-deal();
+// deal();
+
+// hitMe(playerHand);
+
+
+
 
 function handScore() {
   var pHand = 0
   var dHand = 0;
 
+
+
   switch(arr) {
+
+
 
   }
 
