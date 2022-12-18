@@ -27,7 +27,6 @@ deck.push('10H')
 deck.push('JH')
 deck.push('QH')
 deck.push('KH')
-
 deck.push('AC')
 deck.push('2C')
 deck.push('3C')
@@ -41,7 +40,6 @@ deck.push('10C')
 deck.push('JC')
 deck.push('QC')
 deck.push('KC')
-
 deck.push('AD')
 deck.push('2D')
 deck.push('3D')
@@ -55,7 +53,6 @@ deck.push('10D')
 deck.push('JD')
 deck.push('QD')
 deck.push('KD')
-
 deck.push('AS')
 deck.push('2S')
 deck.push('3S')
@@ -104,20 +101,15 @@ function multiDeck(arr, n) {
     var ind = 52 * (Math.random());
     ind = Math.floor(ind)
     var draw = arr[ind];
-
       if (!freshDeck[draw]) {
       freshDeck[draw] = 1;
       result.push(draw);
       } else if (freshDeck[draw] < n) {
         result.push(draw);
         freshDeck[draw] += 1;
-
     } else if (freshDeck[draw] > n) {
-
     }
-
   }
-  console.log(freshDeck);
   return result;
 }
 
@@ -129,23 +121,23 @@ var multiDano = MultiDeck(deck, 5)
 var playingDeck = [];
 var deckFinished = true;
 
-function hitMe() {
-  var newCard = playingDeck.pop();
-  playerHand.push(newCard);
-  console.log(playerHand);
-  return playerHand;
-}
+
 
 
 function deal() {
-
+ playerHand = [];
+ dealerHand = [];
   if (playingDeck.length < 10) {
     deckFinished = true
   }
   if (deckFinished) {
     deckFinished = false;
-    playingDeck = multiDeck(deck, 1);
-    console.log(`shuffling`)
+    playingDeck = multiDeck(deck, 5);
+    console.log(`========shuffling===================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`)
+    console.log(`========shuffling===================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`)
+    console.log(`========shuffling===================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`)
+    console.log(`========shuffling===================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`)
+    console.log(`========shuffling===================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`)
   }
 
   var card1 = playingDeck.pop();
@@ -154,47 +146,58 @@ function deal() {
   var card4 = playingDeck.pop();
 
   playerHand.push(card1, card3);
-
   dealerHand.push(card2, card4)
-
-  console.log(playerHand)
-  console.log(dealerHand)
-
-
 };
 
-deal();
+function hitMe(hand) {
+  var newCard = playingDeck.pop();
+  hand.push(newCard);
+  return hand;
+}
 
-hitMe(playerHand);
-// hitMe(playerHand);
-// hitMe(playerHand);
-// hitMe(playerHand);
-// hitMe(playerHand);
-// hitMe(playerHand);
-// hitMe(playerHand);
-// hitMe(playerHand);
-// hitMe(playerHand);
-// hitMe(playerHand);
-// hitMe(playerHand);
-// hitMe(playerHand);
-// hitMe(playerHand);
-// hitMe(playerHand);
-// hitMe(playerHand);
+function dealerTurn(hand) {
+  while (dealerScore < 17) {
+    console.log('DEALER HAS TO FUCKING HIT!')
+    hand = hitMe(hand)
+    dealerScore = handScore(hand);
+  }
 
 
+  return hand;
+}
+
+// NOT DONE VV-V--------VVVVV
+
+function bjCheck(hand) {
+  if (hand.length !== 2) {
+    return false;
+  }
+  var handScore = handScore(hand);
+  if (handScore !== 21) {
+    return false;
+  }
+  if (result === 21 && aceCount === 1 && faceCard === true && hand.length === 2) {
+    console.log("BLACKJACK MOTHERFUCKERS!!")
+
+    return true;
+  }
+  return false;
+}
 
 
 
 function handScore(hand) {
   var result = 0;
   var aceCount = 0;
+  var faceCard = false;
+
   for (var i = 0; i < hand.length; i++) {
     var card = hand[i];
     if (card.length === 3) {
       result += 10;
     } else if (card[0] === 'J' || card[0] === 'Q' || card[0] === 'K') {
         result += 10;
-
+        faceCard = true;
 
     } else if (card[0] === 'A') {
       result += 11;
@@ -206,14 +209,64 @@ function handScore(hand) {
     }
   }
 
+  if (result === 21 && aceCount === 1 && faceCard === true && hand.length === 2) {
+    console.log("BLACKJACK MOTHERFUCKERS!!!!!!!")
+
+  }
 
   for (var i = aceCount; i > 0; i--) {
     if (result > 21) {
       result -= 10;
     }
   }
-  console.log(result)
+  if (result > 21) {
+    console.log('HAHA YOU BUST BITCH!')
+  }
   return result;
 }
 
-handScore(['8H', 'AD', 'AD', 'AD'])
+var pWins = 0;
+var dWins = 0;
+
+for (var i = 0; i < 500; i++) {
+
+deal();
+
+playerScore = handScore(playerHand)
+dealerScore = handScore(dealerHand)
+
+console.log('Player: ', playerHand, playerScore)
+console.log('Dealer: ', dealerHand, dealerScore)
+
+
+
+if (playerScore < 16) {
+console.log("Player: HIT!")
+hitMe(playerHand)
+playerScore = handScore(playerHand)
+}
+
+console.log('Player: ', playerHand, playerScore)
+console.log('Dealer: ', dealerHand, dealerScore)
+
+dealerTurn(dealerHand)
+
+console.log('Player: ', playerHand, playerScore)
+console.log('Dealer: ', dealerHand, dealerScore)
+
+
+if (dealerScore < playerScore && playerScore < 22) {
+  pWins += 1;
+  console.log('PLAYER wins!!!!')
+} else if (dealerScore > 21 && playerScore < 22) {
+  pWins += 1;
+  console.log('PLAYER wins!!!!')
+}  else {
+  dWins += 1;
+  console.log('Fucking Dealer Wins');
+}
+
+  console.log('Player Wins: ', pWins, 'Dealer Wins: ', dWins)
+  console.log('_____________________________________________________________')
+}
+
