@@ -74,6 +74,8 @@ var dealerScore = 0;
 var playerScore = 0;
 var dealerHand = [];
 var playerHand = [];
+var oneAce = false;
+var twoAce = false;
 
 
 function shuffle(arr) {
@@ -120,12 +122,8 @@ function multiDeck(arr, n) {
 }
 
 
+var multiDano = MultiDeck(deck, 5)
 
-
-var multiDano = MultiDeck(deck, 87)
-
-
-console.log(multiDano)
 
 
 var playingDeck = [];
@@ -165,23 +163,57 @@ function deal() {
 
 };
 
-// deal();
+deal();
 
+hitMe(playerHand);
+// hitMe(playerHand);
+// hitMe(playerHand);
+// hitMe(playerHand);
+// hitMe(playerHand);
+// hitMe(playerHand);
+// hitMe(playerHand);
+// hitMe(playerHand);
+// hitMe(playerHand);
+// hitMe(playerHand);
+// hitMe(playerHand);
+// hitMe(playerHand);
+// hitMe(playerHand);
+// hitMe(playerHand);
 // hitMe(playerHand);
 
 
 
 
-function handScore() {
-  var pHand = 0
-  var dHand = 0;
+
+function handScore(hand) {
+  var result = 0;
+  var aceCount = 0;
+  for (var i = 0; i < hand.length; i++) {
+    var card = hand[i];
+    if (card.length === 3) {
+      result += 10;
+    } else if (card[0] === 'J' || card[0] === 'Q' || card[0] === 'K') {
+        result += 10;
 
 
+    } else if (card[0] === 'A') {
+      result += 11;
+      aceCount += 1;
+    } else {
+      card = parseInt(card);
+      result += card;
 
-  switch(arr) {
-
-
-
+    }
   }
 
+
+  for (var i = aceCount; i > 0; i--) {
+    if (result > 21) {
+      result -= 10;
+    }
+  }
+  console.log(result)
+  return result;
 }
+
+handScore(['8H', 'AD', 'AD', 'AD'])
