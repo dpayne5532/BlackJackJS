@@ -158,17 +158,11 @@ console.log(card1, card3, '==========', card2, card4);
 
 deal();
 
-
-
 function handScore() {
   var pHand = 0
   var dHand = 0;
 
-
-
   switch(arr) {
-
-
 
   }
 
