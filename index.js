@@ -1,3 +1,6 @@
+// line 234   -  for (var i = 0; i < XXX; i++) {   Change the XXX to the number of hands you want played
+// line 138   -  playingDeck = multiDeck(deck, XXX);      Change the XXX to the number of decks you want to play
+
 var FreshDeck = function(deck) {
   var fDeck = shuffle(deck);
 
