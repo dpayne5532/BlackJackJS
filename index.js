@@ -157,7 +157,7 @@ function hitMe(hand) {
 
 function dealerTurn(hand) {
   while (dealerScore < 17) {
-    console.log('DEALER HAS TO FUCKING HIT!')
+    console.log('DEALER HAS TO HIT!')
 
     hand = hitMe(hand)
     console.log('Dealer: ', dealerHand)
@@ -180,7 +180,7 @@ function bjCheck(hand) {
     return false;
   }
   if (result === 21 && aceCount === 1 && faceCard === true && hand.length === 2) {
-    console.log("BLACKJACK MOTHERFUCKERS!!")
+    console.log("BLACKJACK!!")
 
     return true;
   }
@@ -213,7 +213,7 @@ function handScore(hand) {
   }
 
   if (result === 21 && aceCount === 1 && faceCard === true && hand.length === 2) {
-    console.log("BLACKJACK MOTHERFUCKERS!!!!!!!")
+    console.log("BLACKJACK!!!!!!!")
 
   }
 
@@ -223,7 +223,7 @@ function handScore(hand) {
     }
   }
   if (result > 21) {
-    console.log('HAHA YOU BUST BITCH!')
+    console.log('HAHA YOU BUST!')
   }
   return result;
 }
@@ -266,7 +266,7 @@ if (dealerScore < playerScore && playerScore < 22) {
   console.log('PLAYER wins!!!!')
 }  else {
   dWins += 1;
-  console.log('Fucking Dealer Wins');
+  console.log('Dealer Wins');
 }
 
   console.log('Player Wins: ', pWins, 'Dealer Wins: ', dWins)
