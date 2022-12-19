@@ -158,8 +158,11 @@ function hitMe(hand) {
 function dealerTurn(hand) {
   while (dealerScore < 17) {
     console.log('DEALER HAS TO FUCKING HIT!')
+
     hand = hitMe(hand)
+    console.log('Dealer: ', dealerHand)
     dealerScore = handScore(hand);
+
   }
 
 
